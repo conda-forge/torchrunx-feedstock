@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: 0.3.4
+  version: "0.4.0"
   build_number: 0
 
 package:
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://github.com/apoorvkh/torchrunx/archive/refs/tags/${{ version }}.zip
-  sha256: dccd806666d9daf09461c588a2092fd7d08b085d87a319c3c94167050e2f0e20
+  sha256: 27f1ba7d353ab1eba2547d4189beeb40e0dd5e87ed06e0eb16603c2d79a64a07
 
 build:
   number: ${{ build_number }}
@@ -40,10 +40,7 @@ tests:
       python_version: ${{ python_min }}.*
   # Run pytest skipping tests that require a GPU.
   - script:
-      - pytest tests/
-        --deselect=tests/test_func.py::test_launch
-        --deselect=tests/test_submitit.py::test_submitit
-        --deselect=tests/test_train_gpu.py::test_distributed_train
+      - pytest tests/ --deselect=tests/test_func.py::test_launch --deselect=tests/test_submitit.py::test_submitit --deselect=tests/test_train_gpu.py::test_distributed_train
     files:
       source:
         - pyproject.toml
